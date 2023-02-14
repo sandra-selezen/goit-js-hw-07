@@ -22,6 +22,16 @@ function createGalleryItemsMarkup(items) {
     ).join('');
 }
 
+const onImageClick = event => {
+    const { target } = event;
+    if (target.dataset.source) {
+        console.log("Тицьнули на картинку");
+    }
+
+    event.preventDefault();
+}
+
+galleryContainer.addEventListener("click", onImageClick);
 
 /*
 
