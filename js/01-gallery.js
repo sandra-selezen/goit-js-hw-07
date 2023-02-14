@@ -3,9 +3,11 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 
-const galleryContainer = document.querySelector('.gallery');
+const galleryContainer = document.querySelector(".gallery");
 const galleryItemEl = createGalleryItemsMarkup(galleryItems);
-galleryContainer.insertAdjacentHTML('beforeend', galleryItemEl);
+galleryContainer.insertAdjacentHTML("beforeend", galleryItemEl);
+
+let instance = null;
 
 function createGalleryItemsMarkup(items) {
     return items.map(({ preview, original, description }) => 
@@ -19,19 +21,33 @@ function createGalleryItemsMarkup(items) {
                 />
             </a>
         </div>`
-    ).join('');
-}
+    ).join("");
+};
 
 const onImageClick = event => {
+    event.preventDefault();
     const { target } = event;
-    if (target.dataset.source) {
-        console.log("Тицьнули на картинку");
+
+    if (!target.dataset.source) {
+        return;
     }
 
-    event.preventDefault();
+    instance = basicLightbox.create(`<img src="${target.dataset.source}">`);
+    instance.show();
+
+    window.addEventListener('keydown', onEscKeyPress);
 }
 
-galleryContainer.addEventListener("click", onImageClick);
+function onEscKeyPress(event) {
+    const ESC_KEY_CODE = 'Escape';
+    const isEscKey = event.code === ESC_KEY_CODE;
+    if (isEscKey) {
+        instance.close();
+        window.removeEventListener('keydown', onEscKeyPress);
+    }
+    }
+
+galleryContainer.addEventListener('click', onImageClick);
 
 /*
 
