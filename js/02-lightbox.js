@@ -24,8 +24,8 @@ lightBox.on('show.simplelightbox', function () {
     console.log(lightBox);
 });
 
-lightBox.on('error.simplelightbox', function (e) {
-	console.log(e); // some usefull information
+lightBox.on('error.simplelightbox', function (event) {
+	console.log(event); // some usefull information
 });
 
 /*
