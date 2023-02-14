@@ -3,6 +3,17 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 
+const galleryContainer = document.querySelector(".gallery");
+const galleryItemEl = createGalleryItemsMarkup(galleryItems);
+galleryContainer.insertAdjacentHTML("beforeend", galleryItemEl);
+
+function createGalleryItemsMarkup(items) {
+    return items.map(({ preview, original, description }) => 
+        `<a class="gallery__item" href="${original}">
+            <img class="gallery__image" src="${preview}" alt="${description}" />
+        </a>`
+    ).join("");
+}
 
 /*
 
